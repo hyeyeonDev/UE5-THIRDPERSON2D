@@ -1,6 +1,9 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 public class ThirdPerson2D_Demo : ModuleRules
 {
@@ -8,16 +11,23 @@ public class ThirdPerson2D_Demo : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI
-		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		
 		// Uncomment if you are using online features
 		// PrivateDependencyModuleNames.Add("OnlineSubsystem");
 
 		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
+		string PublicPath = Path.Combine(ModuleDirectory, "");
+        List<string> PublicFolders = new List<string>(Directory.GetDirectories(PublicPath, "*", SearchOption.AllDirectories));
+
+        foreach (string Folder in PublicFolders)
+        {
+            PublicIncludePaths.Add(Folder);
+        }
 	}
 }
